@@ -8,29 +8,27 @@ interface FileDetails {
 }
 
 export const extensionToDescription: {[key: string]: string} = {
-	'BATCH': 'Batch',
-	'COL': 'Column',
-	'DAT': 'Data',
-	'FKY': 'Foreign Key',
-	// 'G': 'Global',
-	'IDX': 'Index',
-	'JFD': 'Journal',
-	'm': 'M routine',
-	'PPL': 'Pre Post Lib',
-	'PROC': 'Procedure',
-	'properties': 'properties file',
-	'PSL': 'psl File',
-	'psl': 'psl File',
-	'pslx': 'pslx File',
-	'pslxtra': 'pslxtra File',
-	'psql': 'PSQLScript',
-	'QRY': 'Query',
-	'RPT': 'Report',
-	'SCR': 'Screen',
-	// TABLE not supported
-	// 'TABLE': 'Complete Table',
-	'TBL': 'Table',
-	'TRIG': 'Trigger',
+	BATCH: 'Batch',
+	COL: 'Column',
+	DAT: 'Data',
+	FKY: 'Foreign Key',
+	G: 'Global',
+	IDX: 'Index',
+	JFD: 'Journal',
+	m: 'M routine',
+	PPL: 'Pre Post Lib',
+	PROC: 'Procedure',
+	properties: 'properties file',
+	PSL: 'psl File',
+	psl: 'psl File',
+	pslx: 'pslx File',
+	pslxtra: 'pslxtra File',
+	psql: 'PSQLScript',
+	QRY: 'Query',
+	RPT: 'Report',
+	SCR: 'Screen',
+	TBL: 'Table',
+	TRIG: 'Trigger',
 }
 
 export function v2lvFormat(messageValue: string[]) {
@@ -78,41 +76,45 @@ export function lvFormat(messagString: String): string {
  * @returns {Buffer[]} A buffer array
  */
 export function lv2vFormat(messageString: Buffer): Buffer[] {
-		let returnString: Buffer[] = [];
-		let messageLength = messageString.length;
+	const returnString: Buffer[] = [];
+	const messageLength = messageString.length;
 
-		if (messageLength === 0) { return [] };
+	if (messageLength === 0) { return []; }
 
-		let bytePointer: number = 0;
-		let extractChar: number = 0;
-		let numberOfBufferedLine: number = 0;
-		let byteCalcNumber: number;
+	let currentChar: number;
+	let currentMessageLength: number;
 
-		while (bytePointer < messageLength) {
-			extractChar = messageString.readUInt8(bytePointer);
+	let bytePointer: number = 0;
+	while (bytePointer < messageLength) {
+		currentChar = messageString.readUInt8(bytePointer);
 
-			numberOfBufferedLine = 1;
-
-			if (extractChar === 0) {
-				numberOfBufferedLine = messageString.readUInt8(bytePointer + 1);
-				bytePointer = bytePointer + 2;
-				if (numberOfBufferedLine === 0) {
-					continue;
-				}
-				byteCalcNumber = 1;
-				for (let loopFor = numberOfBufferedLine - 1; loopFor >= 0; loopFor--) {
-					extractChar = (messageString.readUInt8(bytePointer + loopFor) * byteCalcNumber) + extractChar;
-					byteCalcNumber = byteCalcNumber * 256
-				}
+		if (currentChar === 0) {
+			bytePointer++;
+			currentChar = messageString.readUInt8(bytePointer);
+			const headerSize: number = currentChar;
+			currentMessageLength = 0;
+			for (let i = 0; i < headerSize; i++) {
+				bytePointer++;
+				currentChar = messageString.readUInt8(bytePointer);
+				currentMessageLength += currentChar * ( 256 ** (headerSize - i - 1));
 			}
-			if (bytePointer > messageLength) {
-				continue;
-			}
-			returnString.push(messageString.slice(bytePointer + numberOfBufferedLine, bytePointer + extractChar));
-			bytePointer = bytePointer + extractChar;
+			currentMessageLength -= headerSize;
 		}
-		return returnString
+		else {
+			currentMessageLength = currentChar - 1;
+		}
+
+		bytePointer++;
+
+		const currentMessage = Buffer.allocUnsafe(currentMessageLength);
+		messageString.copy(currentMessage, 0, bytePointer, bytePointer + currentMessageLength);
+
+		returnString.push(currentMessage);
+		bytePointer += currentMessageLength;
 	}
+
+	return returnString;
+}
 
 export function parseResponse(serviceClass: number, outputData: Buffer, encoding: BufferEncoding): string {
 		// unpacking multiple times to get the token, remove the endiness by extracting from position 2
