@@ -722,6 +722,12 @@
           "default": false,
           "description": "Set true to enable the latest developing features."
         },
+        "psl.previewNetworkingChanges": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Use refactor networking submodule."
+        },
         "psl.gtmDebugEnabled": {
           "scope": "machine",
           "type": "boolean",
