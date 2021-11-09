@@ -1,8 +1,8 @@
 import * as path from 'path';
-import { FinderPaths } from '../src/parser/config';
-import { MemberClass, ParsedDocument, parseFile } from '../src/parser/parser';
-import * as tokenizer from '../src/parser/tokenizer';
-import * as utilities from '../src/parser/utilities';
+import { FinderPaths } from '../../src/parser/config';
+import { MemberClass, ParsedDocument, parseFile } from '../../src/parser/parser';
+import * as tokenizer from '../../src/parser/tokenizer';
+import * as utilities from '../../src/parser/utilities';
 
 function getTokens(str: string): tokenizer.Token[] {
 	return [...tokenizer.getTokens(str)];
@@ -135,7 +135,7 @@ describe('ParsedDocFinder', () => {
 	}
 
 	beforeAll(async () => {
-		filesDir = path.resolve('__tests__', 'files');
+		filesDir = path.resolve(__dirname, '..', 'pslLint', 'files');
 
 		parentFilePath = path.join(filesDir, 'ZParent.PROC');
 		childFilePath = path.join(filesDir, 'ZChild.PROC');

@@ -1,8 +1,8 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { parseText } from '../src/parser/parser';
-import * as activate from '../src/pslLint/activate';
-import * as api from '../src/pslLint/api';
+import { parseText } from '../../src/parser/parser';
+import * as activate from '../../src/pslLint/activate';
+import * as api from '../../src/pslLint/api';
 
 /**
  * Returns the specific diagnostics on a given line
@@ -22,7 +22,7 @@ export function diagnosticsOnLine(lineNumber: number, diagnostics: api.Diagnosti
  * @param ruleName Optional parameter to return only diagnostics corresponding to the ruleName
  */
 export async function getDiagnostics(testFileName: string, ruleName?: string): Promise<api.Diagnostic[]> {
-	const testFilePath = path.resolve('__tests__', 'files', testFileName);
+	const testFilePath = path.resolve(__dirname, 'files', testFileName);
 	const text = await fs.readFile(testFilePath).then(b => b.toString());
 
 	const profileComponent = new api.ProfileComponent(testFilePath, text);
