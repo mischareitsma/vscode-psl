@@ -1,10 +1,10 @@
 # psl-parser
 
-TypeScript implementation of a PSL parser, from scratch.
+TypeScript implementation of a PSL parser.
 
 ## Usage
 
-```javascript
+```typescript
 import { parseText } from 'psl-parser';
 
 const parsedPsl = parseText(/* PSL source text */);
