@@ -1,0 +1,16 @@
+{
+	"name": "psl-parser",
+	"version": "0.0.3",
+	"description": "A parser for the Profile Scripting Language",
+	"main": "./out/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ing-bank/vscode-psl"
+	},
+	"scripts": {
+		"compile": "tsc -p ./"
+	},
+	"keywords": [],
+	"author": "atiplea",
+	"license": "MIT"
+}

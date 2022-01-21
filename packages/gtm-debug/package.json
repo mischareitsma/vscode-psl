@@ -1,0 +1,16 @@
+{
+	"name": "gtm-debug",
+	"version": "0.0.5",
+	"description": "Debugger for GT.M database",
+	"main": "./out/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ing-bank/vscode-psl"
+	},
+	"scripts": {
+		"compile": "tsc -p ./"
+	},
+	"keywords": [],
+	"author": "atiplea",
+	"license": "MIT"
+}

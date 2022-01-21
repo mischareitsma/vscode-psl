@@ -8,3 +8,5 @@ node_modules
 src/hostif/target/*
 .classpath
 src/pslLint/cli/lib/*
+
+tsconfig.tsbuildinfo

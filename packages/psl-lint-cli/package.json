@@ -1,0 +1,16 @@
+{
+	"name": "psl-lint-cli",
+	"version": "1.6.0",
+	"description": "Command line interface to psl-lint",
+	"main": "./out/index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ing-bank/vscode-psl"
+	},
+	"scripts": {
+		"compile": "tsc -p ./"
+	},
+	"keywords": [],
+	"author": "atiplea",
+	"license": "MIT"
+}
