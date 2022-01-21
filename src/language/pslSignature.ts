@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import { FinderPaths, getFinderPaths } from '../parser/config';
-import * as parser from '../parser/parser';
-import { Position, Token } from '../parser/tokenizer';
+import * as parser from 'psl-parser';
+import { Position, Token } from 'psl-parser';
+import { parseText } from '../parser/parser';
 import * as utils from '../parser/utilities';
 import * as lang from './lang';
 
@@ -10,7 +11,7 @@ export class PSLSignatureHelpProvider implements vscode.SignatureHelpProvider {
 		const workspaceDirectory = vscode.workspace.getWorkspaceFolder(document.uri);
 		if (!workspaceDirectory) return;
 
-		let parsedDoc = parser.parseText(document.getText());
+		let parsedDoc = parseText(document.getText());
 		// get tokens on line and current token
 		let tokenSearchResults = ((tokens: Token[], position: Position) => {
 			const tokensOnLine = tokens.filter(t => t.position.line === position.line);

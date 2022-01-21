@@ -1,5 +1,5 @@
-import { Method, ParsedDocument } from '../parser/parser';
-import { Token } from '../parser/tokenizer';
+import { Method, ParsedDocument, Token } from 'psl-parser';
+
 import { getCommentsOnLine, getLineAfter} from '../parser/utilities';
 import { Diagnostic, DiagnosticSeverity, MethodRule } from './api';
 

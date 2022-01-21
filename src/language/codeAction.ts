@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { MemberDiagnostic } from '../language/codeQuality';
-import * as parser from '../parser/parser';
+import * as parser from 'psl-parser';
 import { getLineAfter } from '../parser/utilities';
 import { MethodDocumentation, MethodSeparator } from '../pslLint/methodDoc';
 

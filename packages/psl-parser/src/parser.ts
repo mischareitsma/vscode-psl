@@ -251,12 +251,13 @@ export const NON_TYPE_MODIFIERS = [
 	'public', 'static', 'private',
 ];
 
-export function parseText(sourceText: string): ParsedDocument {
-	const parser = new Parser();
-	return parser.parseDocument(sourceText);
-}
 
 // TODO: If this still make sense, needs to move to a psl-parser-cli package. No fs in this package.
+// export function parseText(sourceText: string): ParsedDocument {
+// 	const parser = new Parser();
+// 	return parser.parseDocument(sourceText);
+// }
+
 // export function parseFile(sourcePath: string): Promise<ParsedDocument> {
 // 	return new Promise((resolve, reject) => {
 // 		fs.readFile(sourcePath, (err, data) => {
@@ -271,7 +272,7 @@ export function parseText(sourceText: string): ParsedDocument {
 // 	});
 // }
 
-class Parser {
+export class Parser {
 
 	private tokenizer: IterableIterator<Token>;
 	private activeToken: Token;

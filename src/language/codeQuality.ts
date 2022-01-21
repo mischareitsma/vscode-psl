@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { BATCH_MODE, PSL_MODE, TRIG_MODE } from '../extension';
-import * as parser from '../parser/parser';
+import * as parser from 'psl-parser';
+import { parseText } from '../parser/parser'
 import { getDiagnostics } from '../pslLint/activate';
 import * as api from '../pslLint/api';
 import { getConfig, removeConfig, setConfig } from '../pslLint/config';
@@ -110,7 +111,7 @@ function lint(
 ) {
 	const profileComponent: api.ProfileComponent = prepareDocument(textDocument);
 	const parsedDocument = api.ProfileComponent.isPsl(profileComponent.fsPath) ?
-		parser.parseText(textDocument.getText()) : undefined;
+		parseText(textDocument.getText()) : undefined;
 	const diagnostics = getDiagnostics(profileComponent, parsedDocument, useConfig);
 	const memberDiagnostics = transform(diagnostics, textDocument.uri);
 	process.nextTick(() => {

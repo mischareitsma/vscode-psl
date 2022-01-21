@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
-import * as parser from '../parser/parser';
+import * as parser from 'psl-parser';
+import { parseText } from '../parser/parser';
 import { getVirtualDocument } from './mumps';
 
 export class PSLDocumentSymbolProvider implements vscode.DocumentSymbolProvider {
 
 	public provideDocumentSymbols(document: vscode.TextDocument): Promise<vscode.SymbolInformation[]> {
 		return new Promise(resolve => {
-			const parsedDoc = parser.parseText(document.getText());
+			const parsedDoc = parseText(document.getText());
 			const symbols: vscode.SymbolInformation[] = [];
 			parsedDoc.methods.forEach(method => {
 				symbols.push(createMethodSymbol(method, document));
@@ -41,7 +42,7 @@ export class MumpsDocumentSymbolProvider implements vscode.DocumentSymbolProvide
 	getParsedDoc(document: vscode.TextDocument) {
 		const cachedMumps = getVirtualDocument(document.uri);
 		if (cachedMumps) return cachedMumps.parsedDocument;
-		else return parser.parseText(document.getText());
+		else return parseText(document.getText());
 	}
 }
 

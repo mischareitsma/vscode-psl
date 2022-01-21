@@ -2,8 +2,8 @@ import * as fs from 'fs-extra';
 import * as jsonc from 'jsonc-parser';
 import * as path from 'path';
 import { FinderPaths } from './config';
-import { Member, MemberClass, Method, ParsedDocument, parseText, Property } from './parser';
-import { Position, Token, Type } from './tokenizer';
+import { Member, MemberClass, Method, ParsedDocument, Property, Position, Token, Type } from 'psl-parser';
+import { parseText } from './parser';
 
 export interface FinderResult {
 	fsPath: string;

@@ -1,9 +1,7 @@
-import { Member, MemberClass, Method } from '../parser/parser';
 import {
-	BinaryOperator, Identifier,
-	StringLiteral, SyntaxKind, Value,
-} from '../parser/statementParser';
-import { Range, Token } from '../parser/tokenizer';
+	Member, MemberClass, Method, BinaryOperator, Identifier,
+	StringLiteral, SyntaxKind, Value, Range, Token
+} from 'psl-parser';
 import { getCommentsOnLine } from '../parser/utilities';
 import { Diagnostic, DiagnosticRelatedInformation, DiagnosticSeverity, MethodRule } from './api';
 

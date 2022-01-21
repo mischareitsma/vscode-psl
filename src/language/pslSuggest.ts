@@ -1,16 +1,16 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { FinderPaths, getFinderPaths } from '../parser/config';
-import * as parser from '../parser/parser';
-import { MemberClass } from '../parser/parser';
+import { MemberClass } from 'psl-parser';
 import * as utils from '../parser/utilities';
 import * as lang from './lang';
+import { parseText } from '../parser/parser';
 
 export class PSLCompletionItemProvider implements vscode.CompletionItemProvider {
 
 	async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, cancellationToken: vscode.CancellationToken): Promise<PSLCompletionItem[] | undefined> {
 		if (cancellationToken.isCancellationRequested) return;
-		let parsedDoc = parser.parseText(document.getText());
+		let parsedDoc = parseText(document.getText());
 
 		// get tokens on line and current token
 		let tokenSearchResults = utils.searchTokens(parsedDoc.tokens, position);

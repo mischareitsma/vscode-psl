@@ -1,6 +1,8 @@
 import * as path from 'path';
-import { Declaration, Member, Method, Parameter, ParsedDocument, Property } from './../parser/parser';
-import { Position, Range } from './../parser/tokenizer';
+import {
+	Declaration, Member, Method, Parameter, ParsedDocument,
+	Property, Position, Range
+} from 'psl-parser';
 
 export enum DiagnosticSeverity {
 
