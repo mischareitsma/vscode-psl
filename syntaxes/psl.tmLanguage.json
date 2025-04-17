@@ -13,6 +13,7 @@
     "patterns": [
         { "include": "#comments",               "comment": "PSL comment-block, PSL comment-to-end-of-line, and M comment-to-end-of-line"},
         { "include": "#accept-directive",       "comment": "#ACCEPT directive with all text following the directive considered comment"},
+        { "include": "#acceptreason-directive", "comment": "#ACCEPTREASON directive with all text following the directive considered comment"},
         { "include": "#classdef-directive",     "comment": "#CLASSDEF directive with qualifiers"},
         { "include": "#if-directive",           "comment": "#IF and #ELSEIF directives (followed by PSL code)"},
         { "include": "#optimize-directive",     "comment": "#OPTIMIZE directive"},
@@ -33,9 +34,17 @@
     "repository": {
         "accept-directive": {
             "comment": "#ACCEPT PSL code generator directive. All text following the directive is rendered as comment.",
-            "match": "^\\s+(#ACCEPT)(.*)",
+            "match": "^\\s+(#ACCEPT\\s+)(.*)",
             "captures": {
                 "1": { "name": "constant.language.codegeneratorDirective.accept.psl"},
+                "2": { "name": "comment.inline.psl"}
+            }
+        },
+        "acceptreason-directive": {
+            "comment": "#ACCEPTREASON PSL code generator directive. All text following the directive is rendered as comment.",
+            "match": "^\\s+(#ACCEPTREASON)(.*)",
+            "captures": {
+                "1": { "name": "constant.language.codegeneratorDirective.acceptreason.psl"},
                 "2": { "name": "comment.inline.psl"}
             }
         },
